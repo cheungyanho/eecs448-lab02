@@ -5,7 +5,7 @@
 *	@brief Implementation file for templated LinkedList class
 */
 
-testing
+//testing
 
 
 template <typename T>
@@ -35,17 +35,7 @@ int LinkedList<T>::size() const
 	/** TODO
 		Fix this method
 	*/
-	int size_count = 0;
-	Node<T>* temp = m_front;
-	if(!isEmpty())
-	{
-		while(temp!=nullptr)
-		{
-			size_count++;
-			temp = temp->getNext();
-		}
-	}
-	return(size_count);
+	return(m_size);
 }
 
 template <typename T>
@@ -120,22 +110,31 @@ template <typename T>
 bool LinkedList<T>::removeBack()
 {
 	Node<T>* lastNode = nullptr;
-	Node<T>* secondintoLast = nullptr;
+	Node<T>* secondintoLast = m_front;
 	bool isRemoved = false;
 
 	/** TODO
 		Fix this method
 	*/
-	Node<T>* temp = nullptr;
-	if(!isEmpty())
+	if(isEmpty())
 	{
-		for(int i=2; i<size(); i++)
+	}else	if(m_front->getNext() == nullptr)
+	{
+		delete m_front;
+		isRemoved = true;
+		m_size--;
+	}else if(!isEmpty())
+	{
+		while(secondintoLast->getNext()->getNext() != nullptr)
 		{
 			secondintoLast = secondintoLast->getNext();
 		}
 		lastNode = secondintoLast->getNext();
 		delete lastNode;
+		lastNode = nullptr;
+		secondintoLast->setNext(nullptr);
 		isRemoved = true;
+		m_size--;
 	}
 	return(isRemoved);
 }
